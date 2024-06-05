@@ -1,5 +1,7 @@
 package com.goldeng.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -26,4 +28,6 @@ public interface CommissionMapper {
 
     @Mapping(target = "receiverId", source = "receiver.personId")
     CommissionDTOWithoutCustomer commissionToCommissionDTOWithoutCustomer(Commission commission);
+
+    List<CommissionDTO> commissionsListToCommissionsDTOList(List<Commission> commissions);
 }

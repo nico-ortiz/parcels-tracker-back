@@ -1,12 +1,16 @@
 package com.goldeng.service.impl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.CustomerDTO;
+import com.goldeng.dto.PackageDTO;
+import com.goldeng.dto.ReceiverDTO;
 import com.goldeng.mapper.CommissionMapper;
 import com.goldeng.model.Commission;
 import com.goldeng.model.enums.Status;
@@ -24,9 +28,22 @@ public class CommissionService implements ICommissionService {
 
     private CommissionMapper commissionMapper;
 
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private ReceiverService receiverService;
+
     @Override
     public CommissionDTO createCommission(CommissionDTO commissionDTO) {
         Commission commission = commissionMapper.commissionDTOToCommission(commissionDTO);
+        CustomerDTO customer  = customerService.getCustomer(commission.getCustomer().getPersonId());
+        ReceiverDTO receiver  = receiverService.getReceiver(commission.getReceiver().getPersonId());
+
+        if (customer.getCustomerId() == null || receiver.getReceiverId() == null) {
+            return new CommissionDTO();
+        }
+
         commission.setStatus(Status.EN_PREPARACION);
         commission.setDate(LocalDate.now());
         commission.setPrice(0f);
@@ -73,7 +90,25 @@ public class CommissionService implements ICommissionService {
         commissionToUpdate.setReceiverId(commissionDTO.getReceiverId());
         commissionToUpdate.setPackages(commissionDTO.getPackages());
 
-        return this.createCommission(commissionToUpdate);
+        Commission commissionUpdated = commissionRepository.save(commissionMapper.commissionDTOToCommission(commissionToUpdate));
+        return commissionMapper.commissionToCommissionDTO(commissionUpdated);
+    }
+
+    @Override
+    public List<CommissionDTO> getCommissionsByDate(LocalDate date) {
+        List<CommissionDTO> commissions = commissionMapper.commissionsListToCommissionsDTOList(commissionRepository.findCommissionsByDate(date));
+        return commissions;
+    }
+
+    @Override
+    public List<PackageDTO> getPackagesByCommission(Long commissionId) {
+        CommissionDTO commission = this.getCommission(commissionId);
+
+        if (commission.getCommissionId() == null) {
+            return null;
+        }
+
+        return commission.getPackages();
     }
     
 }

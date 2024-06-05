@@ -1,5 +1,8 @@
 package com.goldeng.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.PackageDTO;
 import com.goldeng.service.ICommissionService;
 
 @RestController
@@ -24,7 +29,14 @@ public class CommissionController {
 
     @PostMapping("/create")
     public ResponseEntity<CommissionDTO> createCommission(@RequestBody CommissionDTO commissionDTO) {
-        return new ResponseEntity<>(commissionService.createCommission(commissionDTO), HttpStatus.CREATED);
+        CommissionDTO commissionCreated = commissionService.createCommission(commissionDTO);
+
+        /*No se encontro Customer ni Receiver con los Ids indicados */
+        if (commissionCreated.getCommissionId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(commissionCreated, HttpStatus.CREATED);
     }
 
     @GetMapping("/{commissionId}")
@@ -58,5 +70,21 @@ public class CommissionController {
         } 
 
         return new ResponseEntity<>(commissionUpdated, HttpStatus.OK);
+    }
+
+    @GetMapping("/by-date")
+    public ResponseEntity<List<CommissionDTO>> getCommissionsByDate(@RequestParam LocalDate date) {
+        List<CommissionDTO> commissions = commissionService.getCommissionsByDate(date);
+        return new ResponseEntity<>(commissions, HttpStatus.OK);
+    }
+
+    @GetMapping("/{commissionId}/packages")
+    public ResponseEntity<List<PackageDTO>> getPackagesOfCommission(@PathVariable Long commissionId) {
+        List<PackageDTO> packages = commissionService.getPackagesByCommission(commissionId);
+
+        if (packages == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(packages, HttpStatus.OK);
     }
 }

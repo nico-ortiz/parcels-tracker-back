@@ -1,6 +1,10 @@
 package com.goldeng.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.PackageDTO;
 
 public interface ICommissionService {
     
@@ -11,13 +15,15 @@ public interface ICommissionService {
     CommissionDTO deleteCommission(Long commissionId);
 
     CommissionDTO updateCommission(Long commissionId, CommissionDTO commissionDTO);
+  
+    List<CommissionDTO> getCommissionsByDate(LocalDate date);
+    
+    List<PackageDTO> getPackagesByCommission(Long commissionId);
+    
     /*
-     * -> Comisiones de una fecha
      * -> Agregar paquete
      * -> Eliminar paquete
      * -> Modificar paquete
-     * -> Ver paquetes de una comision
      * -> 
      */
-    
 }

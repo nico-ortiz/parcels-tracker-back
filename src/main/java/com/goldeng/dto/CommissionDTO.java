@@ -24,10 +24,8 @@ public class CommissionDTO {
 
     private float price;
 
-    // private CustomerDTO customer;
     private Long customerId;
 
-    // private ReceiverDTO receiver;
     private Long receiverId;
 
     private List<PackageDTO> packages;

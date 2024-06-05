@@ -27,5 +27,6 @@ public interface CustomerMapper {
     List<CustomerDTO> customerListToCustomerDTOList(List<Customer> customers);
 
     @Mapping(target = "customerId", source = "personId")
+    @Mapping(target = "commissions.packages.commissionId", ignore = true)
     CustomerDTOWithCommissions customerToCustomerDTOWC(Customer customer);
 }

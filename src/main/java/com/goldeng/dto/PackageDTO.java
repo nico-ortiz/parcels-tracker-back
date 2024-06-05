@@ -17,5 +17,5 @@ public class PackageDTO {
 
     private PackageType packageType;
 
-    private CommissionDTOWithoutPackages commission;
+    private Long commissionId;
 }   

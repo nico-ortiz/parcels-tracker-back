@@ -15,7 +15,9 @@ public interface PackageMapper {
     PackageMapper INSTANCE = Mappers.getMapper(PackageMapper.class);
 
     @Mapping(target = "commission.packages", ignore = true)
+    @Mapping(target = "commission.commissionId", source = "commissionId")
     Package packageDTOToPackage(PackageDTO packageDTO);
 
+    @Mapping(target = "commissionId", source = "commission.commissionId")
     PackageDTO packageToPackageDTO(Package package1);
 }

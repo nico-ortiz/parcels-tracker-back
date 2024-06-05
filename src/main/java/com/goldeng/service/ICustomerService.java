@@ -2,9 +2,9 @@ package com.goldeng.service;
 
 import java.util.List;
 
+import com.goldeng.dto.CommissionDTOWithoutCustomer;
 import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.CustomerDTOWithCommissions;
-import com.goldeng.model.Commission;
 
 public interface ICustomerService {
     
@@ -20,5 +20,5 @@ public interface ICustomerService {
 
     CustomerDTOWithCommissions getCustomerWithCommissions(Long customerId);
 
-    List<Commission> getCustomerCommissions(Long customerId);
+    List<CommissionDTOWithoutCustomer> getCustomerCommissions(Long customerId);
 }

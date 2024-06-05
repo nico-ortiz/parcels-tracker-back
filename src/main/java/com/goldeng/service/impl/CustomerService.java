@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.goldeng.dto.CommissionDTOWithoutCustomer;
 import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.CustomerDTOWithCommissions;
 import com.goldeng.mapper.CustomerMapper;
-import com.goldeng.model.Commission;
 import com.goldeng.model.Customer;
 import com.goldeng.repository.CustomerRepository;
 import com.goldeng.service.ICustomerService;
@@ -93,7 +93,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<Commission> getCustomerCommissions(Long customerId) {
+    public List<CommissionDTOWithoutCustomer> getCustomerCommissions(Long customerId) {
         CustomerDTOWithCommissions customerDTO = this.getCustomerWithCommissions(customerId);
 
         if (customerDTO.getCustomerId() != null) {

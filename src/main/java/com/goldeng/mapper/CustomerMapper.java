@@ -10,7 +10,9 @@ import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.CustomerDTOWithCommissions;
 import com.goldeng.model.Customer;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+    componentModel = "spring",
+    uses = {CommissionMapper.class})
 public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);

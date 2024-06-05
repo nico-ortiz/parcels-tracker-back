@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.goldeng.dto.CommissionDTOWithoutCustomer;
 import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.CustomerDTOWithCommissions;
-import com.goldeng.model.Commission;
 import com.goldeng.service.ICustomerService;
 
 @RestController
@@ -74,8 +74,8 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}/commissions")
-    public ResponseEntity<List<Commission>> getCustomerCommissions(@PathVariable Long customerId) {
-        List<Commission> commissions = this.customerService.getCustomerCommissions(customerId);
+    public ResponseEntity<List<CommissionDTOWithoutCustomer>> getCustomerCommissions(@PathVariable Long customerId) {
+        List<CommissionDTOWithoutCustomer> commissions = this.customerService.getCustomerCommissions(customerId);
         if (commissions == null) {
             return new ResponseEntity<>(HttpStatus. NOT_FOUND);
         }

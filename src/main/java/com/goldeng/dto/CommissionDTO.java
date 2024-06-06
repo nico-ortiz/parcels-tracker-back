@@ -28,5 +28,5 @@ public class CommissionDTO {
 
     private Long receiverId;
 
-    private List<PackageDTO> packages;
+    private List<PackageDTOWithoutCommission> packages;
 }

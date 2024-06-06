@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldeng.dto.CommissionDTO;
-import com.goldeng.dto.PackageDTO;
+import com.goldeng.dto.PackageDTOWithoutCommission;
 import com.goldeng.service.ICommissionService;
 
 @RestController
@@ -79,8 +79,8 @@ public class CommissionController {
     }
 
     @GetMapping("/{commissionId}/packages")
-    public ResponseEntity<List<PackageDTO>> getPackagesOfCommission(@PathVariable Long commissionId) {
-        List<PackageDTO> packages = commissionService.getPackagesByCommission(commissionId);
+    public ResponseEntity<List<PackageDTOWithoutCommission>> getPackagesOfCommission(@PathVariable Long commissionId) {
+        List<PackageDTOWithoutCommission> packages = commissionService.getPackagesByCommission(commissionId);
 
         if (packages == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

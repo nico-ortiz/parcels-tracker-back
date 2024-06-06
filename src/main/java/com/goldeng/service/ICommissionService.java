@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.goldeng.dto.CommissionDTO;
-import com.goldeng.dto.PackageDTO;
+import com.goldeng.dto.PackageDTOWithoutCommission;
 
 public interface ICommissionService {
     
@@ -18,7 +18,7 @@ public interface ICommissionService {
   
     List<CommissionDTO> getCommissionsByDate(LocalDate date);
     
-    List<PackageDTO> getPackagesByCommission(Long commissionId);
+    List<PackageDTOWithoutCommission> getPackagesByCommission(Long commissionId);
     
     /*
      * -> Agregar paquete

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.goldeng.dto.CommissionDTO;
 import com.goldeng.dto.CustomerDTO;
-import com.goldeng.dto.PackageDTO;
+import com.goldeng.dto.PackageDTOWithoutCommission;
 import com.goldeng.dto.ReceiverDTO;
 import com.goldeng.mapper.CommissionMapper;
 import com.goldeng.model.Commission;
@@ -101,7 +101,7 @@ public class CommissionService implements ICommissionService {
     }
 
     @Override
-    public List<PackageDTO> getPackagesByCommission(Long commissionId) {
+    public List<PackageDTOWithoutCommission> getPackagesByCommission(Long commissionId) {
         CommissionDTO commission = this.getCommission(commissionId);
 
         if (commission.getCommissionId() == null) {

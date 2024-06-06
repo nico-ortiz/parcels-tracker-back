@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goldeng.dto.ReceiverDTO;
+import com.goldeng.dto.ReceiverDTOWithCommissions;
 import com.goldeng.mapper.ReceiverMapper;
 import com.goldeng.model.Receiver;
 import com.goldeng.repository.ReceiverRepository;
@@ -68,5 +69,16 @@ public class ReceiverService implements IReceiverService {
         receiverToUpdate.setOpeningHour(receiverDTO.getOpeningHour());
         receiverToUpdate.setClosingHour(receiverDTO.getClosingHour());
         return this.createReceiver(receiverDTO);
+    }
+
+    @Override
+    public ReceiverDTOWithCommissions getReceiverWithReceivedCommissions(Long receiverId) {
+        Optional<Receiver> receiver =  receiverRepository.findById(receiverId);
+
+        if (!receiver.isPresent()) {
+            return new ReceiverDTOWithCommissions();
+        }
+
+        return receiverMapper.receiverToReceiverDTOWC(receiver.get());
     }
 }

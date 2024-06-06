@@ -1,10 +1,13 @@
 package com.goldeng.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.goldeng.dto.PackageDTO;
+import com.goldeng.dto.PackageDTOWithoutCommission;
 import com.goldeng.model.Package;
 
 @Mapper(
@@ -20,4 +23,8 @@ public interface PackageMapper {
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
     PackageDTO packageToPackageDTO(Package package1);
+
+    PackageDTOWithoutCommission packageToPackageDTOWithoutCommissionId(Package package1);
+
+    List<PackageDTOWithoutCommission> packageListToPackageDTOWCList(List<Package> packages);
 }

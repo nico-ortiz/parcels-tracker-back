@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldeng.dto.ReceiverDTO;
+import com.goldeng.dto.ReceiverDTOWithCommissions;
 import com.goldeng.service.impl.ReceiverService;
 
 @RestController
@@ -56,5 +57,15 @@ public class ReceiverController {
         }
 
         return new ResponseEntity<>(receiverUpdated, HttpStatus.OK);
+    }
+
+    @GetMapping("withComm/{receiverId}")
+    public ResponseEntity<ReceiverDTOWithCommissions> getReceiverWithReceivedCommissions(@PathVariable Long receiverId) {
+        ReceiverDTOWithCommissions receiverDTO = receiverService.getReceiverWithReceivedCommissions(receiverId);
+
+        if (receiverDTO.getReceiverId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(receiverDTO, HttpStatus.OK);
     }
 }

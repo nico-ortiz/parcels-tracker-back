@@ -1,5 +1,6 @@
 package com.goldeng.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.AttributeOverride;
@@ -35,5 +36,5 @@ public class Customer extends Person {
     private String password;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Commission> commissions;
+    private List<Commission> commissions =  new ArrayList<>();
 }

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +26,7 @@ import lombok.Setter;
 @AttributeOverride(name = "personId", column = @Column(name = "receiver_id"))
 public class Receiver extends Person {
     
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
 
     @Column(name = "opening_hour")

@@ -1,6 +1,7 @@
 package com.goldeng.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.goldeng.model.enums.Status;
@@ -51,5 +52,5 @@ public class Commission {
     private Receiver receiver;
 
     @OneToMany(mappedBy = "commission", fetch = FetchType.LAZY)
-    private List<Package> packages;
+    private List<Package> packages = new ArrayList<>();
 }

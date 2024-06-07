@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.CommissionDTORequest;
 import com.goldeng.dto.PackageDTOWithoutCommission;
 
 public interface ICommissionService {
     
-    CommissionDTO createCommission(CommissionDTO commissionDTO);
+    CommissionDTO createCommission(CommissionDTORequest commissionDTO);
 
     CommissionDTO getCommission(Long commissionId);
 

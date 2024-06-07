@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.CommissionDTORequest;
 import com.goldeng.dto.PackageDTOWithoutCommission;
 import com.goldeng.service.ICommissionService;
 
@@ -28,7 +29,7 @@ public class CommissionController {
     private ICommissionService commissionService;
 
     @PostMapping("/create")
-    public ResponseEntity<CommissionDTO> createCommission(@RequestBody CommissionDTO commissionDTO) {
+    public ResponseEntity<CommissionDTO> createCommission(@RequestBody CommissionDTORequest commissionDTO) {
         CommissionDTO commissionCreated = commissionService.createCommission(commissionDTO);
 
         /*No se encontro Customer ni Receiver con los Ids indicados */

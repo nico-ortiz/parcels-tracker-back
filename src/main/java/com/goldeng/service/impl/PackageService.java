@@ -11,6 +11,7 @@ import com.goldeng.mapper.PackageMapper;
 import com.goldeng.model.Package;
 import com.goldeng.repository.PackageRepository;
 import com.goldeng.service.IPackageService;
+import com.goldeng.validator.ObjectsValidator;
 
 import lombok.AllArgsConstructor;
 
@@ -26,8 +27,11 @@ public class PackageService implements IPackageService {
     @Autowired
     private CommissionService commissionService;
 
+    private ObjectsValidator<PackageDTO> packageValidator;
+
     @Override
     public PackageDTO createPackage(PackageDTO packageDTO) {
+        packageValidator.validate(packageDTO);
         CommissionDTO commission = commissionService.getCommission(packageDTO.getCommissionId());
 
         if (commission.getCommissionId() == null) {
@@ -52,6 +56,7 @@ public class PackageService implements IPackageService {
 
     @Override
     public PackageDTO updatePackageDTO(Long packageId, PackageDTO packageDTO) {
+            packageValidator.validate(packageDTO);
             PackageDTO packageToUpdate = this.getPackageById(packageId);
 
             if (packageToUpdate.getPackageId() == null) {

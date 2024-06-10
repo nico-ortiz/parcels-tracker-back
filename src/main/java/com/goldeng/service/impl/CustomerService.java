@@ -13,6 +13,7 @@ import com.goldeng.mapper.CustomerMapper;
 import com.goldeng.model.Customer;
 import com.goldeng.repository.CustomerRepository;
 import com.goldeng.service.ICustomerService;
+import com.goldeng.validator.ObjectsValidator;
 
 import lombok.AllArgsConstructor;
 
@@ -27,8 +28,11 @@ public class CustomerService implements ICustomerService {
 
     // private PasswordEncoder passwordEncoder;
 
+    private ObjectsValidator<CustomerDTO> customerValidator;
+
     @Override
     public CustomerDTO createCustomer(CustomerDTO customerDTO) {
+        customerValidator.validate(customerDTO);
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         CustomerDTO customerDTOSaved = customerMapper.customerToCustomerDTO(this.customerRepository.save(customer));
         return customerDTOSaved;
@@ -63,6 +67,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public CustomerDTO updateCustomer(Long customerId, CustomerDTO customerDTO) {
+        customerValidator.validate(customerDTO);
         CustomerDTO customerDB = this.getCustomer(customerId);
 
         if (customerDB.getCustomerId() == null) {

@@ -11,6 +11,7 @@ import com.goldeng.mapper.ReceiverMapper;
 import com.goldeng.model.Receiver;
 import com.goldeng.repository.ReceiverRepository;
 import com.goldeng.service.IReceiverService;
+import com.goldeng.validator.ObjectsValidator;
 
 import lombok.AllArgsConstructor;
 
@@ -23,8 +24,11 @@ public class ReceiverService implements IReceiverService {
 
     private ReceiverMapper receiverMapper;
 
+    private ObjectsValidator<ReceiverDTO> objectsValidator;
+
     @Override
     public ReceiverDTO createReceiver(ReceiverDTO receiverDTO) {
+        objectsValidator.validate(receiverDTO);
         Receiver receiver = receiverMapper.receiverDTOToReceiver(receiverDTO);
         ReceiverDTO receiverDTOSaved = receiverMapper.receiverToReceiverDTO(receiverRepository.save(receiver));
         return receiverDTOSaved;
@@ -55,6 +59,7 @@ public class ReceiverService implements IReceiverService {
 
     @Override
     public ReceiverDTO updateReceiver(Long receiverId, ReceiverDTO receiverDTO) {
+        objectsValidator.validate(receiverDTO);
         ReceiverDTO receiverToUpdate = this.getReceiver(receiverId);
 
         if (receiverToUpdate.getReceiverId() == null) {

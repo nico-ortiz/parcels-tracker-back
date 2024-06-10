@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.CommissionDTORequest;
 import com.goldeng.dto.CommissionDTOWithoutCustomer;
 import com.goldeng.dto.CommissionDTOWithoutReceiver;
 import com.goldeng.model.Commission;
@@ -36,4 +37,13 @@ public interface CommissionMapper {
     List<CommissionDTO> commissionsListToCommissionsDTOList(List<Commission> commissions);
 
     List<CommissionDTOWithoutReceiver> commissionListToCommissionDTOWtRList(List<Commission> commissions);
+
+    @Mapping(target = "customer.personId", source = "customerId")
+    @Mapping(target = "receiver.personId", source = "receiverId")
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "date", ignore = true)
+    @Mapping(target = "packages", ignore = true)
+    @Mapping(target = "price", ignore = true)
+    @Mapping(target = "commissionId", ignore = true)
+    Commission commissionDTORequestToCommission(CommissionDTORequest commissionDTORequest);
 }

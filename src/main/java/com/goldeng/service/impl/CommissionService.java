@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goldeng.dto.CommissionDTO;
+import com.goldeng.dto.CommissionDTORequest;
 import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.PackageDTOWithoutCommission;
 import com.goldeng.dto.ReceiverDTO;
@@ -16,6 +17,7 @@ import com.goldeng.model.Commission;
 import com.goldeng.model.enums.Status;
 import com.goldeng.repository.CommissionRepository;
 import com.goldeng.service.ICommissionService;
+import com.goldeng.validator.ObjectsValidator;
 
 import lombok.AllArgsConstructor;
 
@@ -34,9 +36,14 @@ public class CommissionService implements ICommissionService {
     @Autowired
     private ReceiverService receiverService;
 
+    private ObjectsValidator<CommissionDTORequest> commissionDTORequestValidator;
+
+    private ObjectsValidator<CommissionDTO> commissionDTOValidator;
+
     @Override
-    public CommissionDTO createCommission(CommissionDTO commissionDTO) {
-        Commission commission = commissionMapper.commissionDTOToCommission(commissionDTO);
+    public CommissionDTO createCommission(CommissionDTORequest commissionDTO) {
+        commissionDTORequestValidator.validate(commissionDTO);
+        Commission commission = commissionMapper.commissionDTORequestToCommission(commissionDTO);
         CustomerDTO customer  = customerService.getCustomer(commission.getCustomer().getPersonId());
         ReceiverDTO receiver  = receiverService.getReceiver(commission.getReceiver().getPersonId());
 
@@ -76,6 +83,7 @@ public class CommissionService implements ICommissionService {
 
     @Override
     public CommissionDTO updateCommission(Long commissionId, CommissionDTO commissionDTO) {
+        commissionDTOValidator.validate(commissionDTO);
         CommissionDTO commissionToUpdate = this.getCommission(commissionId);        
 
         if (commissionToUpdate.getCommissionId() == null) {

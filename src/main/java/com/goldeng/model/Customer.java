@@ -13,11 +13,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "customers")
 @AttributeOverride(name = "personId", column = @Column(name = "customer_id"))
@@ -36,5 +38,5 @@ public class Customer extends Person {
     private String password;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Commission> commissions =  new ArrayList<>();
+    private List<Commission> commissions;
 }

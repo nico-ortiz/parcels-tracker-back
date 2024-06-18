@@ -2,6 +2,7 @@ package com.goldeng.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.goldeng.dataProvider.PackageData;
+import com.goldeng.dto.CommissionDTO;
 import com.goldeng.dto.PackageDTO;
 import com.goldeng.model.Package;
 import com.goldeng.model.enums.PackageType;
@@ -68,6 +70,22 @@ public class PackageServiceTest {
     }
 
     @Test
+    void whenCommissionIdNotExistsNotCreatePackageTest() {
+        //Given
+        PackageDTO packageDTO = PackageData.packageDTOMock();
+
+        //When
+        doNothing().when(packageValidator).validate(packageDTO);
+        when(this.commissionService.getCommission(anyLong())).thenReturn(new CommissionDTO());
+
+        PackageDTO packageSaved = this.packageService.createPackage(packageDTO);
+
+        //Then
+        assertNull(packageSaved.getCommissionId());
+        assertEquals(null, packageSaved.getDescription());
+    }
+
+    @Test
     void deletePackageTest() {
         //Given 
         Long packageId = 1L;
@@ -84,6 +102,21 @@ public class PackageServiceTest {
         assertNotNull(packageDeleted.getPackageId());
         assertEquals(PackageType.CAJA_MEDIANA, packageDeleted.getPackageType());
         verify(this.packageRepository).delete(any(Package.class));
+    }
+
+    @Test
+    void whenPackageIdNotExistsThenNotDeletePackage() {
+        //Given 
+        Long packageId = 22L;
+
+        //When
+        when(this.packageRepository.findById(packageId)).thenReturn(Optional.empty());
+
+        PackageDTO packageDeleted = this.packageService.deletePackage(packageId);
+
+        //Then
+        assertNull(packageDeleted.getPackageId());
+        assertEquals(null, packageDeleted.getPackageType());
     }
 
     @Test
@@ -109,6 +142,23 @@ public class PackageServiceTest {
     }
 
     @Test
+    void whenPackageIdNotExistsNotUpdatePackage() {
+        //Given
+        Long packageId = 133L;
+        PackageDTO newData = PackageData.newpackageDTOMock();
+
+        //When
+        doNothing().when(packageValidator).validate(newData);
+        when(this.packageRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        PackageDTO packageUpdated = this.packageService.updatePackageDTO(packageId, newData);
+    
+        //Then
+        assertNull(packageUpdated.getCommissionId());
+        assertEquals(null, packageUpdated.getDescription());
+    }
+
+    @Test
     void getPackageByIdTest() {
         //Given
         Long packageId = 1L;
@@ -125,5 +175,18 @@ public class PackageServiceTest {
         verify(this.packageRepository).findById(anyLong());
     }
 
+    @Test
+    void whenPackageIdNotExistsTest() {
+        //Given
+        Long packageId = 32L;
 
+        //When
+        when(this.packageRepository.findById(packageId)).thenReturn(Optional.empty());
+
+        PackageDTO packageDTO = this.packageService.getPackageById(packageId);
+
+        //Then
+        assertNull(packageDTO.getPackageId());
+        assertEquals(null, packageDTO.getPackageId());
+    }
 }

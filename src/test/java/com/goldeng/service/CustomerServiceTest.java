@@ -84,6 +84,22 @@ public class CustomerServiceTest {
     }
 
     @Test
+    void whenIdNotExistsTest() {
+        //Given
+        Long customerId = 2L;
+
+        //When
+        when(this.customerRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        CustomerDTO customerDTO = this.customerService.getCustomer(customerId);
+
+        //Then
+        assertNull(customerDTO.getCustomerId());
+        assertNull(customerDTO.getFirstName());
+        verify(this.customerRepository).findById(anyLong());
+    }
+
+    @Test
     void getCustomersTest() {
         //When
         when(this.customerMapper.customerListToCustomerDTOList(anyList())).thenReturn(CustomerData.customerDTOListMock());
@@ -118,6 +134,21 @@ public class CustomerServiceTest {
     }
 
     @Test
+    void whenIdNotExistsNotDeleteTest() {
+        //Given
+        Long customerId = 2L;
+
+        //When
+        when(this.customerRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        CustomerDTO customerDeleted = this.customerService.deleteCustomer(customerId);
+
+        //Then
+        assertNull(customerDeleted.getCustomerId());
+        assertNull(customerDeleted.getEmail());
+    }
+
+    @Test
     void updateCustomerTest() {
         //Given
         Long customerId = 1L;
@@ -140,6 +171,22 @@ public class CustomerServiceTest {
     }
 
     @Test
+    void whenIdNotExistsNotUpdatedCustomerTest() {
+        //Given
+        Long customerId = 2L;
+        CustomerDTO newCustomerData = new CustomerDTO(1L, "Ramon", "Sinatra", "Buenos Aires 21", "3584333123", "12123123", "rsinatra@gmail.com", "12121231231", "Sin4tr4.");    
+
+        //When
+        when(this.customerRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        CustomerDTO customerDeleted = this.customerService.updateCustomer(customerId, newCustomerData);
+
+        //Then
+        assertNull(customerDeleted.getCustomerId());
+        assertNull(customerDeleted.getEmail());
+    }
+
+    @Test
     void getCustomerWithCommissionsTest() {
         //Given
         Long customerId = 1L;
@@ -158,6 +205,21 @@ public class CustomerServiceTest {
     }
 
     @Test
+    void whenNotExistsCustomerIdReturnEmptyCustomerTest() {
+        //Given
+        Long customerId = 22L;
+
+        //When
+        when(this.customerRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        CustomerDTOWithCommissions customerDTOWithCommissions = this.customerService.getCustomerWithCommissions(customerId);
+
+        //Then
+        assertNull(customerDTOWithCommissions.getCustomerId());
+        assertNull(customerDTOWithCommissions.getDni());
+    }
+
+    @Test
     void getCustomerCommissionsTest() {
         //Given
         Long customerId = 1L;
@@ -172,5 +234,19 @@ public class CustomerServiceTest {
         assertTrue(!commissions.isEmpty());
         assertTrue(commissions.size() == 1);
         verify(this.customerRepository).findById(customerId);
+    }
+
+    @Test
+    void whenIdCustomerNotExistsReturnAnEmptyListTest() {
+        //Given
+        Long customerId = 22L;
+
+        //When
+        when(this.customerRepository.findById(anyLong())).thenReturn(Optional.empty());
+        
+        List<CommissionDTOWithoutCustomer> commissions = this.customerService.getCustomerCommissions(customerId);
+
+        //Then
+        assertNull(commissions);
     }
 }

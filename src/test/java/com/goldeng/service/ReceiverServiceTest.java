@@ -2,6 +2,7 @@ package com.goldeng.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
@@ -82,6 +83,21 @@ public class ReceiverServiceTest {
     }
 
     @Test
+    void whenReceiverIdNotExistsReturnNullTest() {
+        //Given 
+        Long receiverId = 22L;
+
+        //When
+        when(this.receiverRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        ReceiverDTO receiverDTO = this.receiverService.getReceiver(receiverId);
+
+        //Then\
+        assertNull(receiverDTO.getReceiverId());
+        assertNull(receiverDTO.getLastName());
+    }
+
+    @Test
     void deleteReceiverTest() {
         //Given
         Long receiverId = 1L;
@@ -98,6 +114,21 @@ public class ReceiverServiceTest {
         assertNotNull(receiverDTO);
         assertEquals(receiverId, receiverDTO.getReceiverId());
         verify(this.receiverRepository).delete(any(Receiver.class));
+    }
+
+    @Test
+    void whenReceiverIdNotExistsNotDeleteTest() {
+        //Given
+        Long receiverId = 1L;
+
+        //When
+        when(this.receiverRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        ReceiverDTO receiverDTO = this.receiverService.deleteReceiver(receiverId);
+
+        //Then
+        assertNull(receiverDTO.getFirstName());
+        assertEquals(null, receiverDTO.getReceiverId());
     }
 
     @Test
@@ -131,6 +162,32 @@ public class ReceiverServiceTest {
     }
 
     @Test
+    void whenReceiverIdNotExistsNotUpdateTest() {
+        //Given
+        Long receiverId = 1L;
+        ReceiverDTO newReceiverData =new ReceiverDTO(
+            1L,
+            "Sergio",
+            "Ramos",
+            "Sarmiento 1010",
+            "45612033",
+            LocalDate.of(2024, 12, 22),
+            LocalTime.of(13, 30),
+            LocalTime.of(17, 30)
+        );
+
+        //When
+        doNothing().when(this.receiverValidator).validate(any(ReceiverDTO.class));
+        when(this.receiverRepository.findById(anyLong())).thenReturn(Optional.empty());
+        
+        ReceiverDTO receiverUpdated = this.receiverService.updateReceiver(receiverId, newReceiverData);
+
+        //Then
+        assertNull(receiverUpdated.getReceiverId());
+        assertEquals(null, receiverUpdated.getAddress());
+    }
+
+    @Test
     void getReceiverWithReceivedCommissionsTest() {
         //Given
         Long receiverId = 1L;
@@ -145,5 +202,20 @@ public class ReceiverServiceTest {
         assertNotNull(receiver);            
         assertEquals("Marco", receiver.getFirstName());
         verify(this.receiverRepository).findById(anyLong());
+    }
+
+    @Test
+    void whenNotExistsReceiverIdThenReturnsNullTest() {
+        //Given
+        Long receiverId = 1L;
+
+        //When
+        when(this.receiverRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        ReceiverDTOWithCommissions receiver = this.receiverService.getReceiverWithReceivedCommissions(receiverId);
+
+        //Then
+        assertNull(receiver.getReceiverId());            
+        assertEquals(null, receiver.getFirstName());
     }
 }

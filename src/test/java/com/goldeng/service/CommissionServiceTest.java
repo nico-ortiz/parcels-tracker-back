@@ -2,6 +2,7 @@ package com.goldeng.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -25,7 +26,9 @@ import com.goldeng.dataProvider.CustomerData;
 import com.goldeng.dataProvider.ReceiverData;
 import com.goldeng.dto.CommissionDTO;
 import com.goldeng.dto.CommissionDTORequest;
+import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.PackageDTOWithoutCommission;
+import com.goldeng.dto.ReceiverDTO;
 import com.goldeng.mapper.CommissionMapper;
 import com.goldeng.model.Commission;
 import com.goldeng.repository.CommissionRepository;
@@ -79,6 +82,39 @@ public class CommissionServiceTest {
     }
 
     @Test
+    void whenCustomerNotExistsNotCreateCommissionTest() {
+        //Given
+        CommissionDTORequest commissionDTORequest = CommissionData.commissionDTORequestMock();
+
+        //When
+        when(this.commissionMapper.commissionDTORequestToCommission(any(CommissionDTORequest.class))).thenReturn(CommissionData.commissionMock());
+        when(this.customerService.getCustomer(anyLong())).thenReturn(CustomerData.customerDTOMock());
+        when(this.receiverService.getReceiver(anyLong())).thenReturn(new ReceiverDTO());
+
+        CommissionDTO commissionSaved = this.commissionService.createCommission(commissionDTORequest);
+
+        //Then
+        assertNull(commissionSaved.getDescription());
+        assertEquals(null, commissionSaved.getCustomerId());
+    }
+
+    @Test
+    void whenReceiverNotExistsNotCreateCommissionTest() {
+        //Given
+        CommissionDTORequest commissionDTORequest = CommissionData.commissionDTORequestMock();
+
+        //When
+        when(this.commissionMapper.commissionDTORequestToCommission(any(CommissionDTORequest.class))).thenReturn(CommissionData.commissionMock());
+        when(this.customerService.getCustomer(anyLong())).thenReturn(new CustomerDTO());
+
+        CommissionDTO commissionSaved = this.commissionService.createCommission(commissionDTORequest);
+
+        //Then
+        assertNull(commissionSaved.getDescription());
+        assertEquals(null, commissionSaved.getReceiverId());
+    }
+
+    @Test
     void getCommissionTest() {
         //Given
         Long commissionId = 23L;
@@ -93,6 +129,21 @@ public class CommissionServiceTest {
         assertNotNull(commissionDTO);
         assertEquals(6000f, commissionDTO.getPrice());
         verify(this.commissionRepository).findById(anyLong());
+    }
+
+    @Test
+    void whenNotExistsCommissionTest() {
+        //Given
+        Long commissionId = 43L;
+
+        //When
+        when(this.commissionRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        CommissionDTO commissionDTO = this.commissionService.getCommission(commissionId);
+
+        //Then
+        assertNull(commissionDTO.getCommissionId());
+        assertEquals(null, commissionDTO.getDescription());
     }
 
     @Test
@@ -115,13 +166,27 @@ public class CommissionServiceTest {
     }
 
     @Test
+    void whenNotExistsCommissionIdNotDelete() {
+        //Given
+        Long commissionId = 123L;
+
+        //When
+        when(this.commissionRepository.findById(anyLong())).thenReturn(Optional.empty());
+        
+        CommissionDTO commissionDeleted = this.commissionService.deleteCommission(commissionId);
+
+        //Then
+        assertNull(commissionDeleted.getCommissionId());
+        assertTrue(commissionDeleted.getPackages() == null);
+    }
+
+    @Test
     void updateCommissionTest() {
         //Given
         Long commissionId = 22L;
         CommissionDTO newData = CommissionData.commissionUpdateDTOMock();
 
         //When
-        // doNothing().when(this.commissionDTOValidator).validate(any(CommissionDTO.class));
         when(this.commissionRepository.findById(anyLong())).thenReturn(Optional.of(CommissionData.commissionMock()));
         when(this.commissionMapper.commissionToCommissionDTO(any(Commission.class))).thenReturn(CommissionData.commissionDTOMock());
         when(this.commissionRepository.save(any(Commission.class))).thenReturn(CommissionData.commissionUpdatedMock());
@@ -133,6 +198,22 @@ public class CommissionServiceTest {
         assertNotNull(commissionUpdated);   
         assertEquals(2, commissionUpdated.getPackages().size());
         verify(this.commissionRepository).save(any(Commission.class));
+    }
+
+    @Test
+    void whenNotExistsCommissionIdNotUpdateCommissionTest() {
+        //Given
+        Long commissionId = 222L;
+        CommissionDTO newData = CommissionData.commissionUpdateDTOMock();
+
+        //When
+        when(this.commissionRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        CommissionDTO commissionUpdated = this.commissionService.updateCommission(commissionId, newData);
+
+        //Then
+        assertNull(commissionUpdated.getCommissionId());   
+        assertEquals(null, commissionUpdated.getPackages());
     }
 
     @Test
@@ -167,5 +248,19 @@ public class CommissionServiceTest {
         assertNotNull(packages);
         assertEquals(3, packages.size());
         verify(this.commissionRepository).findById(anyLong());
+    }
+
+    @Test
+    void whenNotExistsCommissionIdNotExistsPackagesTest() {
+        //Given
+        Long commissionId = 100L;
+
+        //When
+        when(this.commissionRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        List<PackageDTOWithoutCommission> packages = this.commissionService.getPackagesByCommission(commissionId);
+        
+        //Then
+        assertNull(packages);
     }
 }

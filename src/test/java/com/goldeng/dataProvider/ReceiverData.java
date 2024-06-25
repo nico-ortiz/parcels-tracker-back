@@ -28,6 +28,19 @@ public class ReceiverData {
         );
     }
 
+    public static ReceiverDTO receiverDTOUpdatedMock() {
+        return new ReceiverDTO(
+            1L,
+            "Sergio",
+            "Ramos",
+            "Francia 104",
+            "45612033",
+            LocalDate.of(2025, 12, 22),
+            LocalTime.of(16, 30),
+            LocalTime.of(20, 30)
+        );
+    }
+
     public static Receiver receiverMock() {
         return Receiver.builder()
             .personId(1L)

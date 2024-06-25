@@ -47,6 +47,11 @@ public class CustomerData {
             .build();
     }
 
+    public static CustomerDTO customerDTOUpdatedMock() {
+        return new CustomerDTO(1L, "Ramon", "Sinatra", "Buenos Aires 21", "3584333123", "12123123", "rsinatra@gmail.com", "12121231231", "Sin4tr4.");
+    }
+    
+
     public static CustomerDTO customerWithCommissionsDTOMock() {
         return new CustomerDTO(1L, "Ramon", "Sinatra", "Buenos Aires 21", "3584123123", "12123123", "ramonSin@gmail.com", "12121231231", "Sin4tr4.");    
     }

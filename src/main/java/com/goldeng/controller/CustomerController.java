@@ -21,7 +21,7 @@ import com.goldeng.dto.CustomerDTO;
 import com.goldeng.dto.CustomerDTOWithCommissions;
 import com.goldeng.service.ICustomerService;
 
-// @CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {

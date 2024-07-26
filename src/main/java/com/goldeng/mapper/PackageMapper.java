@@ -26,8 +26,5 @@ public interface PackageMapper {
 
     PackageDTOWithoutCommission packageToPackageDTOWithoutCommissionId(Package package1);
 
-    @Mapping(target = "commission", ignore = true)
-    Package packageDTOWCToPackage(PackageDTOWithoutCommission packageDTOWithoutCommission);
-
     List<PackageDTOWithoutCommission> packageListToPackageDTOWCList(List<Package> packages);
 }

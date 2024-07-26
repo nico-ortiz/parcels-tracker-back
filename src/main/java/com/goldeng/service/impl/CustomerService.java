@@ -68,7 +68,7 @@ public class CustomerService implements ICustomerService {
     @Override
     public CustomerDTO updateCustomer(Long customerId, CustomerDTO customerDTO) {
         customerValidator.validate(customerDTO);
-        CustomerDTOWithCommissions customerDB = this.getCustomerWithCommissions(customerId);
+        CustomerDTO customerDB = this.getCustomer(customerId);
 
         if (customerDB.getCustomerId() == null) {
             return new CustomerDTO();
@@ -83,10 +83,7 @@ public class CustomerService implements ICustomerService {
         customerDB.setCuit(customerDTO.getCuit());
         //encode password
         customerDB.setPassword(customerDTO.getPassword());
-
-        Customer customerToUpdatedDB = this.customerMapper.customerDTOWCToCustomer(customerDB);
-        Customer updatedCustomer = customerRepository.save(customerToUpdatedDB);
-        return customerMapper.customerToCustomerDTO(updatedCustomer);
+        return this.createCustomer(customerDTO);
     }
 
     @Override

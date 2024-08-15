@@ -42,9 +42,9 @@ public class CommissionData {
 
     public static Commission commissionMock() {
         List<Package> packages = List.of(
-            new Package(6L, "Sobre con dinero", PackageType.SOBRE, new Commission()),
-            new Package(7L, "Sobre con documentacion", PackageType.SOBRE, new Commission()),
-            new Package(8L, "Recibos", PackageType.SOBRE, new Commission())
+            new Package(6L, "Sobre con dinero", 1000f, PackageType.SOBRE, new Commission()),
+            new Package(7L, "Sobre con documentacion", 1200f, PackageType.SOBRE, new Commission()),
+            new Package(8L, "Recibos", 1400f, PackageType.SOBRE, new Commission())
         );
 
         return new Commission(
@@ -61,8 +61,8 @@ public class CommissionData {
 
     public static Commission commissionUpdatedMock() {
         List<Package> packages = List.of(
-            new Package(6L, "Sobre con dinero", PackageType.SOBRE, new Commission()),
-            new Package(7L, "Sobre con documentacion", PackageType.SOBRE, new Commission())
+            new Package(6L, "Sobre con dinero", 1000f, PackageType.SOBRE, new Commission()),
+            new Package(7L, "Sobre con documentacion", 1000f, PackageType.SOBRE, new Commission())
         );
 
         return new Commission(

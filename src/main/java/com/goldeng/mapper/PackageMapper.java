@@ -18,6 +18,7 @@ public interface PackageMapper {
     PackageMapper INSTANCE = Mappers.getMapper(PackageMapper.class);
 
     @Mapping(target = "commission.packages", ignore = true)
+    @Mapping(target = "price", ignore = true)
     @Mapping(target = "commission.commissionId", source = "commissionId")
     Package packageDTOToPackage(PackageDTO packageDTO);
 
@@ -27,6 +28,7 @@ public interface PackageMapper {
     PackageDTOWithoutCommission packageToPackageDTOWithoutCommissionId(Package package1);
 
     @Mapping(target = "commission", ignore = true)
+    @Mapping(target = "price", ignore = true)
     Package packageDTOWCToPackage(PackageDTOWithoutCommission packageDTOWithoutCommission);
 
     List<PackageDTOWithoutCommission> packageListToPackageDTOWCList(List<Package> packages);

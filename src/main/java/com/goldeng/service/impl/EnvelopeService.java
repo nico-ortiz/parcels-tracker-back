@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.goldeng.dto.CommissionDTO;
 import com.goldeng.dto.EnvelopeDTO;
-import com.goldeng.dto.EnvelopeDTORequest;
 import com.goldeng.mapper.EnvelopeMapper;
 import com.goldeng.model.packageSubClasses.Envelope;
 import com.goldeng.repository.EnvelopeRepository;
@@ -29,7 +28,7 @@ public class EnvelopeService implements IEnvelopeService {
     @Autowired
     private ICommissionService commissionService;
 
-    private ObjectsValidator<EnvelopeDTORequest> envelopeValidator;
+    private ObjectsValidator<EnvelopeDTO> envelopeValidator;
 
     @Override
     public EnvelopeDTO getEnvelopeById(Long envelopeId) {
@@ -43,7 +42,7 @@ public class EnvelopeService implements IEnvelopeService {
     }
 
     @Override
-    public EnvelopeDTO createEnvelope(EnvelopeDTORequest envelopeDTO) {
+    public EnvelopeDTO createEnvelope(EnvelopeDTO envelopeDTO) {
         envelopeValidator.validate(envelopeDTO);
 
         CommissionDTO commission = commissionService.getCommission(envelopeDTO.getCommissionId());
@@ -52,7 +51,7 @@ public class EnvelopeService implements IEnvelopeService {
             return new EnvelopeDTO();
         }
 
-        Envelope envelopeSaved = envelopeRepository.save(envelopeMapper.envelopeDTORequestToEnvelope(envelopeDTO));
+        Envelope envelopeSaved = envelopeRepository.save(envelopeMapper.envelopeDTOToEnvelope(envelopeDTO));
         return envelopeMapper.envelopeToEnvelopeDTO(envelopeSaved);
     }
     

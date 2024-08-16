@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.goldeng.dto.BiggerDTO;
+import com.goldeng.dto.BiggerDTOWithoutCommission;
 import com.goldeng.model.packageSubClasses.Bigger;
 
 @Mapper(
@@ -20,4 +21,7 @@ public interface BiggerMapper {
     @Mapping(target = "biggerId", source = "packageId")
     @Mapping(target = "commissionId", source = "commission.commissionId")
     BiggerDTO biggerToBiggerDTO(Bigger bigger);
+
+    @Mapping(target = "biggerId", source = "packageId")
+    BiggerDTOWithoutCommission biggerToBiggerDTOWC(Bigger bigger);
 }

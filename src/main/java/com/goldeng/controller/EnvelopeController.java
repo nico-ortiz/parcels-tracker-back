@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldeng.dto.EnvelopeDTO;
-import com.goldeng.dto.EnvelopeDTORequest;
 import com.goldeng.service.IEnvelopeService;
 
 @RestController
@@ -22,7 +21,7 @@ public class EnvelopeController {
     private IEnvelopeService envelopeService;
 
     @PostMapping("/create")
-    public ResponseEntity<EnvelopeDTO> createEnvelope(@RequestBody EnvelopeDTORequest envelopeRequest) {
+    public ResponseEntity<EnvelopeDTO> createEnvelope(@RequestBody EnvelopeDTO envelopeRequest) {
         EnvelopeDTO envelopeSaved =  envelopeService.createEnvelope(envelopeRequest);
 
         if (envelopeSaved.getEnvelopeId() == null) {

@@ -46,8 +46,4 @@ public interface CommissionMapper {
     @Mapping(target = "price", ignore = true)
     @Mapping(target = "commissionId", ignore = true)
     Commission commissionDTORequestToCommission(CommissionDTORequest commissionDTORequest);
-
-    @Mapping(target = "customer", ignore = true)
-    @Mapping(target = "receiver.personId", source = "receiverId")
-    Commission commissionDTOWCToCommission(CommissionDTOWithoutCustomer commissionDTOWithoutCustomer);
 }

@@ -29,7 +29,4 @@ public interface CustomerMapper {
     @Mapping(target = "customerId", source = "personId")
     @Mapping(target = "commissions.packages.commissionId", ignore = true)
     CustomerDTOWithCommissions customerToCustomerDTOWC(Customer customer);
-
-    @Mapping(target = "personId", source = "customerId")
-    Customer customerDTOWCToCustomer(CustomerDTOWithCommissions customerDTOWithCommissions);
 }

@@ -23,9 +23,9 @@ public class CommissionData {
 
     public static CommissionDTO commissionDTOMock() {
         List<PackageDTOWithoutCommission> packages = List.of(
-            new PackageDTOWithoutCommission(6L, "Sobre con dinero", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(8L, "Recibos", PackageType.SOBRE)
+            new PackageDTOWithoutCommission(6L, "Sobre con dinero", 1000, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", 1300, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(8L, "Recibos", 3300, PackageType.SOBRE)
         );
 
         return new CommissionDTO(
@@ -42,9 +42,9 @@ public class CommissionData {
 
     public static Commission commissionMock() {
         List<Package> packages = List.of(
-            new Package(6L, "Sobre con dinero", PackageType.SOBRE, new Commission()),
-            new Package(7L, "Sobre con documentacion", PackageType.SOBRE, new Commission()),
-            new Package(8L, "Recibos", PackageType.SOBRE, new Commission())
+            new Package(6L, "Sobre con dinero", 1000f, PackageType.SOBRE, new Commission()),
+            new Package(7L, "Sobre con documentacion", 1200f, PackageType.SOBRE, new Commission()),
+            new Package(8L, "Recibos", 1400f, PackageType.SOBRE, new Commission())
         );
 
         return new Commission(
@@ -61,8 +61,8 @@ public class CommissionData {
 
     public static Commission commissionUpdatedMock() {
         List<Package> packages = List.of(
-            new Package(6L, "Sobre con dinero", PackageType.SOBRE, new Commission()),
-            new Package(7L, "Sobre con documentacion", PackageType.SOBRE, new Commission())
+            new Package(6L, "Sobre con dinero", 1000f, PackageType.SOBRE, new Commission()),
+            new Package(7L, "Sobre con documentacion", 1000f, PackageType.SOBRE, new Commission())
         );
 
         return new Commission(
@@ -79,8 +79,8 @@ public class CommissionData {
 
     public static CommissionDTO commissionUpdateDTOMock() {
         List<PackageDTOWithoutCommission> packages = List.of(
-            new PackageDTOWithoutCommission(6L, "Sobre con dinero", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", PackageType.SOBRE)
+            new PackageDTOWithoutCommission(6L, "Sobre con dinero", 2400, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", 5000, PackageType.SOBRE)
         );
 
         return new CommissionDTO(

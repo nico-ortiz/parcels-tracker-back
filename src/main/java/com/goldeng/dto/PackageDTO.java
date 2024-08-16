@@ -18,6 +18,9 @@ public class PackageDTO {
     @NotBlank(message = "La descripcion del paquete es necesaria")
     private String description;
 
+    @NotNull(message = "El precio del paquete es necesario")
+    private float price;
+
     @NotNull(message = "El tipo de paquete es necesario")
     private PackageType packageType;
 

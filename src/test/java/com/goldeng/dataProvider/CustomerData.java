@@ -96,8 +96,8 @@ public class CustomerData {
 
     public static CustomerDTOWithCommissions customerDTOWithCommissionsMock() {
         List<PackageDTOWithoutCommission> packages = List.of(
-            new PackageDTOWithoutCommission(1L, "Sobre con dinero", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(4L, "Caja con herramientas", PackageType.CAJA_MEDIANA)
+            new PackageDTOWithoutCommission(1L, "Sobre con dinero", 5000, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(4L, "Caja con herramientas", 23300, PackageType.CAJA_MEDIANA)
         );
 
         CommissionDTOWithoutCustomer commissionMock = new CommissionDTOWithoutCustomer(134L, "Envio de paquetes", Status.EN_PREPARACION, LocalDate.of(2024, 06, 15), 0.0f, 1L, packages);

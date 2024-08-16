@@ -57,8 +57,8 @@ public class ReceiverData {
 
     public static ReceiverDTOWithCommissions receiverDTOWithCommissionsMock() {
         List<PackageDTOWithoutCommission> packages = List.of(
-            new PackageDTOWithoutCommission(1L, "Sobre con dinero", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(4L, "Caja con herramientas", PackageType.CAJA_MEDIANA)
+            new PackageDTOWithoutCommission(1L, "Sobre con dinero", 3000, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(4L, "Caja con herramientas", 50000, PackageType.CAJA_MEDIANA)
         );
 
         CommissionDTOWithoutReceiver commissionMock = new CommissionDTOWithoutReceiver(134L, "Envio de paquetes", Status.EN_PREPARACION, LocalDate.of(2024, 06, 15), 0.0f, 1L, packages);

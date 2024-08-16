@@ -23,9 +23,9 @@ public class CommissionData {
 
     public static CommissionDTO commissionDTOMock() {
         List<PackageDTOWithoutCommission> packages = List.of(
-            new PackageDTOWithoutCommission(6L, "Sobre con dinero", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(8L, "Recibos", PackageType.SOBRE)
+            new PackageDTOWithoutCommission(6L, "Sobre con dinero", 1000, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", 1300, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(8L, "Recibos", 3300, PackageType.SOBRE)
         );
 
         return new CommissionDTO(
@@ -79,8 +79,8 @@ public class CommissionData {
 
     public static CommissionDTO commissionUpdateDTOMock() {
         List<PackageDTOWithoutCommission> packages = List.of(
-            new PackageDTOWithoutCommission(6L, "Sobre con dinero", PackageType.SOBRE),
-            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", PackageType.SOBRE)
+            new PackageDTOWithoutCommission(6L, "Sobre con dinero", 2400, PackageType.SOBRE),
+            new PackageDTOWithoutCommission(7L, "Sobre con documentacion", 5000, PackageType.SOBRE)
         );
 
         return new CommissionDTO(

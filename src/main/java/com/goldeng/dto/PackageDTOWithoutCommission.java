@@ -20,6 +20,9 @@ public class PackageDTOWithoutCommission {
     @NotBlank(message = "Es necesario ingresar una descripcion del paquete")
     private String description;
 
+    @NotBlank(message = "Es necesario el precio del paquete")
+    private float price;
+
     @NotBlank(message = "Es necesario establecer el tipo de paquete")
     private PackageType packageType;
 }

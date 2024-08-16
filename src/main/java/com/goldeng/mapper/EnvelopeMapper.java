@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 
 import com.goldeng.dto.EnvelopeDTO;
 import com.goldeng.dto.EnvelopeDTORequest;
+import com.goldeng.dto.EnvelopeDTOWithoutCommission;
 import com.goldeng.model.packageSubClasses.Envelope;
 
 @Mapper(
@@ -27,4 +28,7 @@ public interface EnvelopeMapper {
     @Mapping(target = "packageId", ignore = true)
     @Mapping(target = "commission.commissionId", source = "commissionId")
     Envelope envelopeDTORequestToEnvelope(EnvelopeDTORequest envelopeDTORequest);
+ 
+    @Mapping(target = "envelopeId", source = "packageId")
+    EnvelopeDTOWithoutCommission envelopeToEnvelopeDTOWC(Envelope envelope);
 }

@@ -19,6 +19,7 @@ public class PackageData {
         return new PackageDTO(
             1L,
             "Caja con repuestos de auto",
+            1000,
             PackageType.CAJA_MEDIANA,
             1L
         );
@@ -64,6 +65,7 @@ public class PackageData {
         return new PackageDTO(
             1L,
             "Se modifico la caja a una caja mas grande con respuestos",
+            2020,
             PackageType.CAJA_GRANDE,
             1L
         );

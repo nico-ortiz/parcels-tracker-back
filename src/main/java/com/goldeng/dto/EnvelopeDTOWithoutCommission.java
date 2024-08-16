@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EnvelopeDTO extends PackageDTO {
-
+public class EnvelopeDTOWithoutCommission extends PackageDTOWithoutCommission {
+    
     @JsonIgnore
     private Long packageId;
-    
+
     private Long envelopeId;
 }

@@ -1,8 +1,9 @@
-# Parcels tracker Backend
+# Parcels tracker Backend 📦
 This repository contains an API Rest project built using Java Spring. This project is Backend of a Parcels Tracker app.
 
 # Description
-This API brings endpoints to consume data about Parcels, Customers, Packages and Receivers (basic CRUD and others endpoints). These are project models that represent information manipulated in the app.
+This API brings endpoints to consume data about Parcels, Customers, Packages and Receivers (basic CRUD and others endpoints). These are project models that represent information manipulated in the app. \
+You can test the API endpoints directly from the Swagger documentation &rarr; [Swagger Documentation](https://commissions-tracker-api.onrender.com/swagger-ui/index.html)
 
 # Technologies
 I used Spring framework to build the API and PostgreSQL to persist the information in the database.

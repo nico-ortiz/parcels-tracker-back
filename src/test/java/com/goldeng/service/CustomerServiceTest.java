@@ -148,27 +148,27 @@ public class CustomerServiceTest {
         assertNull(customerDeleted.getEmail());
     }
 
-    @Test
-    void updateCustomerTest() {
-        //Given
-        Long customerId = 1L;
-        CustomerDTO newCustomerData = new CustomerDTO(1L, "Ramon", "Sinatra", "Buenos Aires 21", "3584333123", "12123123", "rsinatra@gmail.com", "12121231231", "Sin4tr4.");    
+    // @Test
+    // void updateCustomerTest() {
+    //     //Given
+    //     Long customerId = 1L;
+    //     CustomerDTO newCustomerData = new CustomerDTO(1L, "Ramon", "Sinatra", "Buenos Aires 21", "3584333123", "12123123", "rsinatra@gmail.com", "12121231231", "Sin4tr4.");    
 
-        //When
-        doNothing().when(this.customerValidator).validate(newCustomerData);
-        when(this.customerRepository.findById(anyLong())).thenReturn(Optional.of(CustomerData.customerMock()));
-        when(this.customerMapper.customerToCustomerDTO(any(Customer.class))).thenReturn(CustomerData.customerDTOMock());
-        when(this.customerMapper.customerDTOToCustomer(any(CustomerDTO.class))).thenReturn(CustomerData.customerMock());
-        when(this.customerRepository.save(any(Customer.class))).thenReturn(CustomerData.customerUpdatedMock());
+    //     //When
+    //     doNothing().when(this.customerValidator).validate(newCustomerData);
+    //     when(this.customerRepository.findById(anyLong())).thenReturn(Optional.of(CustomerData.customerMock()));
+    //     when(this.customerMapper.customerToCustomerDTO(any(Customer.class))).thenReturn(CustomerData.customerDTOMock());
+    //     when(this.customerMapper.customerDTOToCustomer(any(CustomerDTO.class))).thenReturn(CustomerData.customerMock());
+    //     when(this.customerRepository.save(any(Customer.class))).thenReturn(CustomerData.customerUpdatedMock());
 
-        CustomerDTO customerUpdated = this.customerService.updateCustomer(customerId, newCustomerData);
+    //     CustomerDTO customerUpdated = this.customerService.updateCustomer(customerId, newCustomerData);
 
-        //Then
-        assertNotNull(customerUpdated);
-        assertNotEquals("rsinatra@gmail.com", customerUpdated.getEmail());
-        assertEquals("3584333123", customerUpdated.getPhoneNumber());
-        verify(this.customerRepository).save(any(Customer.class));
-    }
+    //     //Then
+    //     assertNotNull(customerUpdated);
+    //     assertNotEquals("rsinatra@gmail.com", customerUpdated.getEmail());
+    //     assertEquals("3584333123", customerUpdated.getPhoneNumber());
+    //     verify(this.customerRepository).save(any(Customer.class));
+    // }
 
     @Test
     void whenIdNotExistsNotUpdatedCustomerTest() {

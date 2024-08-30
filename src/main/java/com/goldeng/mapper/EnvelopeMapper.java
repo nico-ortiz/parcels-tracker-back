@@ -21,6 +21,7 @@ public interface EnvelopeMapper {
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
     @Mapping(target = "envelopeId", source = "packageId")
+    @Mapping(target = "packageId", source = "packageId")
     EnvelopeDTO envelopeToEnvelopeDTO(Envelope envelope);
  
     @Mapping(target = "envelopeId", source = "packageId")

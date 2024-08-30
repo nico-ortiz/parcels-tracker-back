@@ -50,7 +50,8 @@ public class PackageService implements IPackageService {
             return new PackageDTO();
         }
        
-        packageRepository.delete(packageMapper.packageDTOToPackage(packageDTO));
+        Package pkg = packageMapper.packageDTOToPackage(packageDTO);
+        packageRepository.delete(pkg);
         return packageDTO;
     }
 

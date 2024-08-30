@@ -53,5 +53,17 @@ public class ParcelService implements IParcelService {
 
         return parcelMapper.parcelToParcelDTO(existsParcel.get());
     }
+
+    @Override
+    public ParcelDTO deleteParcelById(Long parcelId) {
+        ParcelDTO parcelDTO = this.getParcelById(parcelId);
+
+        if (parcelDTO.getParcelId() == null) {
+            return new ParcelDTO();
+        }
+
+        parcelRepository.delete(parcelMapper.parcelDTOToParcel(parcelDTO));
+        return parcelDTO;
+    }
     
 }

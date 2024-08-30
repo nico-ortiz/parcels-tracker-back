@@ -1,5 +1,6 @@
 package com.goldeng.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.goldeng.model.enums.PackageType;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PackageDTO {
 
+    @JsonIgnore
     private Long packageId;
 
     @NotBlank(message = "La descripcion del paquete es necesaria")

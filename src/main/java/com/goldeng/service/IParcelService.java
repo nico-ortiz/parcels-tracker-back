@@ -7,4 +7,6 @@ public interface IParcelService {
     ParcelDTO createParcel(ParcelDTO parcelDTO);
 
     ParcelDTO getParcelById(Long parcelId);
+
+    ParcelDTO deleteParcelById(Long parcelId);
 }

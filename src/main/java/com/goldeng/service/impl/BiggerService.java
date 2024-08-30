@@ -54,5 +54,17 @@ public class BiggerService implements IBiggerService {
 
         return biggerMapper.biggerToBiggerDTO(bigger.get());
     }
+
+    @Override
+    public BiggerDTO deleteBigger(Long biggerId) {
+        BiggerDTO biggerDTO = this.getBigger(biggerId);
+
+        if (biggerDTO == null) {
+            return new BiggerDTO();
+        }
+
+        biggerRepository.delete(biggerMapper.biggerDTOToBigger(biggerDTO));
+        return biggerDTO;
+    }
     
 }

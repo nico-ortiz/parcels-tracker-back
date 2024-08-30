@@ -3,6 +3,7 @@ package com.goldeng.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,5 +43,16 @@ public class BiggerController {
         }
 
         return new ResponseEntity<>(isBiggerExists, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/del/{biggerId}")
+    public ResponseEntity<BiggerDTO> deleteBiggerById(@PathVariable Long biggerId) {
+        BiggerDTO biggerDeleted = this.biggerService.deleteBigger(biggerId);
+
+        if (biggerDeleted.getBiggerId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(biggerDeleted, HttpStatus.ACCEPTED);
     }
 }

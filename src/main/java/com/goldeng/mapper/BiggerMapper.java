@@ -20,6 +20,7 @@ public interface BiggerMapper {
 
     @Mapping(target = "biggerId", source = "packageId")
     @Mapping(target = "commissionId", source = "commission.commissionId")
+    @Mapping(target = "packageId", source = "packageId")
     BiggerDTO biggerToBiggerDTO(Bigger bigger);
 
     @Mapping(target = "biggerId", source = "packageId")

@@ -7,4 +7,6 @@ public interface IEnvelopeService {
     EnvelopeDTO getEnvelopeById(Long envelopeId);
 
     EnvelopeDTO createEnvelope(EnvelopeDTO envelopeDTO);
+
+    EnvelopeDTO deleteEnvelope(Long envelopeId);
 }

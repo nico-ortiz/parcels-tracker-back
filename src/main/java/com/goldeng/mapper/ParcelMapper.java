@@ -22,6 +22,7 @@ public interface ParcelMapper {
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
     @Mapping(target = "parcelId", source = "packageId")
+    @Mapping(target = "packageId", source = "packageId")
     ParcelDTO parcelToParcelDTO(Parcel parcel);
 
     @Mapping(target = "parcelId", source = "packageId")

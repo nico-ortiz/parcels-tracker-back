@@ -7,4 +7,6 @@ public interface IBiggerService {
     BiggerDTO createBigger(BiggerDTO biggerDTO);
 
     BiggerDTO getBigger(Long biggerId);
+
+    BiggerDTO deleteBigger(Long biggerId);
 }

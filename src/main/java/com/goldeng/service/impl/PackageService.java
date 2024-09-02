@@ -44,15 +44,15 @@ public class PackageService implements IPackageService {
 
     @Override
     public PackageDTO deletePackage(Long packageId) {
-        PackageDTO packageDTO = this.getPackageById(packageId);
+        Optional<Package> pkg = packageRepository.findById(packageId);
 
-        if (packageDTO.getPackageId() == null) {
+        if (!pkg.isPresent()) {
             return new PackageDTO();
         }
        
-        Package pkg = packageMapper.packageDTOToPackage(packageDTO);
-        packageRepository.delete(pkg);
-        return packageDTO;
+        packageRepository.delete(pkg.get());
+        PackageDTO packageDeleted = packageMapper.packageToPackageDTO(pkg.get() );
+        return packageDeleted;
     }
 
     @Override

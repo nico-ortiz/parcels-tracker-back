@@ -23,6 +23,5 @@ public interface BiggerMapper {
     @Mapping(target = "packageId", source = "packageId")
     BiggerDTO biggerToBiggerDTO(Bigger bigger);
 
-    @Mapping(target = "biggerId", source = "packageId")
     BiggerDTOWithoutCommission biggerToBiggerDTOWC(Bigger bigger);
 }

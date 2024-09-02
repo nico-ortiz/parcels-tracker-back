@@ -24,6 +24,5 @@ public interface EnvelopeMapper {
     @Mapping(target = "packageId", source = "packageId")
     EnvelopeDTO envelopeToEnvelopeDTO(Envelope envelope);
  
-    @Mapping(target = "envelopeId", source = "packageId")
     EnvelopeDTOWithoutCommission envelopeToEnvelopeDTOWC(Envelope envelope);
 }

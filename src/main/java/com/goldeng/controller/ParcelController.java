@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldeng.dto.ParcelDTO;
+import com.goldeng.model.enums.PackageType;
 import com.goldeng.service.IParcelService;
 
 @CrossOrigin
@@ -54,5 +57,19 @@ public class ParcelController {
         }
 
         return new ResponseEntity<>(parcelDTO, HttpStatus.ACCEPTED); 
+    }
+
+    @PutMapping("/update/{parcelId}")
+    public ResponseEntity<ParcelDTO> updateParcelById(@PathVariable Long parcelId,
+                                                    @RequestParam String description,
+                                                    @RequestParam PackageType packageType,
+                                                    @RequestParam double weight) {
+        ParcelDTO parcelDTO = this.parcelService.updateParcelById(parcelId, description, packageType, weight);
+        
+        if (parcelDTO.getParcelId() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } 
+
+        return new ResponseEntity<>(parcelDTO, HttpStatus.ACCEPTED);
     }
 }

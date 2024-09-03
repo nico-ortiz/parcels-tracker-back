@@ -9,4 +9,6 @@ public interface IBiggerService {
     BiggerDTO getBigger(Long biggerId);
 
     BiggerDTO deleteBigger(Long biggerId);
+
+    BiggerDTO updateBiggerById(Long biggerId, String description, double height, double weight, double width);
 }

@@ -66,5 +66,22 @@ public class BiggerService implements IBiggerService {
         biggerRepository.delete(biggerMapper.biggerDTOToBigger(biggerDTO));
         return biggerDTO;
     }
+
+    @Override
+    public BiggerDTO updateBiggerById(Long biggerId, String description, double height, double weight, double width) {
+        Optional<Bigger> biggerToUpdate = this.biggerRepository.findById(biggerId);
+
+        if (!biggerToUpdate.isPresent()) {
+            return new BiggerDTO();
+        }
+
+        Bigger biggerUpdated = biggerToUpdate.get();
+        biggerUpdated.setDescription(description);
+        biggerUpdated.setHeight(height);
+        biggerUpdated.setWeight(weight);
+        biggerUpdated.setWidth(width);
+        
+        return this.biggerMapper.biggerToBiggerDTO(this.biggerRepository.save(biggerUpdated));
+    }
     
 }

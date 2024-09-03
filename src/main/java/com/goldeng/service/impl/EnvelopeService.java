@@ -65,6 +65,19 @@ public class EnvelopeService implements IEnvelopeService {
 
         envelopeRepository.delete(envelopeMapper.envelopeDTOToEnvelope(envelopeDTO));
         return envelopeDTO;
+    }
+
+    @Override
+    public EnvelopeDTO updateEnvelope(Long envelopeId, String description) {
+        Optional<Envelope> envelope = this.envelopeRepository.findById(envelopeId);
+
+        if (!envelope.isPresent()) {
+            return new EnvelopeDTO();
+        }
+
+        Envelope envelopeUpdated = envelope.get();
+        envelopeUpdated.setDescription(description);
+        return envelopeMapper.envelopeToEnvelopeDTO(this.envelopeRepository.save(envelopeUpdated));
     }   
     
 }

@@ -1,6 +1,7 @@
 package com.goldeng.service;
 
 import com.goldeng.dto.ParcelDTO;
+import com.goldeng.model.enums.PackageType;
 
 public interface IParcelService {
     
@@ -9,4 +10,6 @@ public interface IParcelService {
     ParcelDTO getParcelById(Long parcelId);
 
     ParcelDTO deleteParcelById(Long parcelId);
+
+    ParcelDTO updateParcelById(Long parcelId, String description, PackageType packageType, double weight);
 }

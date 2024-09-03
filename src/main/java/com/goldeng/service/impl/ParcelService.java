@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.goldeng.dto.CommissionDTO;
 import com.goldeng.dto.ParcelDTO;
 import com.goldeng.mapper.ParcelMapper;
+import com.goldeng.model.enums.PackageType;
 import com.goldeng.model.packageSubClasses.Parcel;
 import com.goldeng.repository.ParcelRepository;
 import com.goldeng.service.IParcelService;
@@ -64,6 +65,22 @@ public class ParcelService implements IParcelService {
 
         parcelRepository.delete(parcelMapper.parcelDTOToParcel(parcelDTO));
         return parcelDTO;
+    }
+
+    @Override
+    public ParcelDTO updateParcelById(Long parcelId, String description, PackageType packageType, double weight) {
+        Optional<Parcel> parcel = this.parcelRepository.findById(parcelId);
+
+        if (!parcel.isPresent()) {
+            return new ParcelDTO();
+        }
+
+        Parcel parcelUpdated = parcel.get();
+        parcelUpdated.setDescription(description);
+        parcelUpdated.setPackageType(packageType);
+        parcelUpdated.setWeight(weight);
+
+        return this.parcelMapper.parcelToParcelDTO(this.parcelRepository.save(parcelUpdated));
     }
     
 }

@@ -18,9 +18,7 @@ public interface BiggerMapper {
     @Mapping(target = "commission.commissionId", source = "commissionId")
     Bigger biggerDTOToBigger(BiggerDTO biggerDTO);
 
-    @Mapping(target = "biggerId", source = "packageId")
     @Mapping(target = "commissionId", source = "commission.commissionId")
-    @Mapping(target = "packageId", source = "packageId")
     BiggerDTO biggerToBiggerDTO(Bigger bigger);
 
     BiggerDTOWithoutCommission biggerToBiggerDTOWC(Bigger bigger);

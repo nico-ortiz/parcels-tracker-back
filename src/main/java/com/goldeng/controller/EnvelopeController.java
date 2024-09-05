@@ -29,7 +29,7 @@ public class EnvelopeController {
     public ResponseEntity<EnvelopeDTO> createEnvelope(@RequestBody EnvelopeDTO envelopeRequest) {
         EnvelopeDTO envelopeSaved =  envelopeService.createEnvelope(envelopeRequest);
 
-        if (envelopeSaved.getEnvelopeId() == null) {
+        if (envelopeSaved.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(envelopeSaved, HttpStatus.ACCEPTED);
@@ -39,7 +39,7 @@ public class EnvelopeController {
     public ResponseEntity<EnvelopeDTO> getEnvelope(@PathVariable Long envelopeId) { 
         EnvelopeDTO envelopeDTO = envelopeService.getEnvelopeById(envelopeId);
 
-        if (envelopeDTO.getEnvelopeId() == null) {
+        if (envelopeDTO.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -50,7 +50,7 @@ public class EnvelopeController {
     public ResponseEntity<EnvelopeDTO> deleteEnvelope(@PathVariable Long envelopeId) {
         EnvelopeDTO envelopeDTO = envelopeService.deleteEnvelope(envelopeId);
 
-        if (envelopeDTO.getEnvelopeId() == null) {
+        if (envelopeDTO.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -61,7 +61,7 @@ public class EnvelopeController {
     public ResponseEntity<EnvelopeDTO> updateEnvelope(@PathVariable Long envelopeId, @RequestParam String description) {
         EnvelopeDTO envelopeDTO = this.envelopeService.updateEnvelope(envelopeId, description);
 
-        if (envelopeDTO.getEnvelopeId() == null) {
+        if (envelopeDTO.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

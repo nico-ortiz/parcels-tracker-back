@@ -16,12 +16,9 @@ public interface EnvelopeMapper {
 
     @Mapping(target = "price", ignore = true)
     @Mapping(target = "commission.commissionId", source = "commissionId")
-    @Mapping(target = "packageId", source = "envelopeId")
     Envelope envelopeDTOToEnvelope(EnvelopeDTO envelopeDTO);
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
-    @Mapping(target = "envelopeId", source = "packageId")
-    @Mapping(target = "packageId", source = "packageId")
     EnvelopeDTO envelopeToEnvelopeDTO(Envelope envelope);
  
     EnvelopeDTOWithoutCommission envelopeToEnvelopeDTOWC(Envelope envelope);

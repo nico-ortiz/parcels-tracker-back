@@ -21,8 +21,6 @@ public interface ParcelMapper {
     Parcel parcelDTOToParcel(ParcelDTO parcelDTO);
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
-    @Mapping(target = "parcelId", source = "packageId")
-    @Mapping(target = "packageId", source = "packageId")
     ParcelDTO parcelToParcelDTO(Parcel parcel);
     
     ParcelDTOWithoutCommission parcelToParcelDTOWTC(Parcel parcel);

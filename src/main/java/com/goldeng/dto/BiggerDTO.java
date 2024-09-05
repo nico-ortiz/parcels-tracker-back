@@ -7,8 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter 
 public class BiggerDTO extends PackageDTO {
-    
-    private Long biggerId;
 
     @NotNull(message = "El ancho del paquete es necesario")
     private double width;

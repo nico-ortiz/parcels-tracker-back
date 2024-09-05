@@ -29,7 +29,7 @@ public class BiggerController {
     public ResponseEntity<BiggerDTO> createBigger(@RequestBody BiggerDTO biggerRequest) {
         BiggerDTO biggerSaved = biggerService.createBigger(biggerRequest);
 
-        if (biggerSaved.getBiggerId() == null) {
+        if (biggerSaved.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -40,7 +40,7 @@ public class BiggerController {
     public ResponseEntity<BiggerDTO> getBigerById(@PathVariable Long biggerId) {
         BiggerDTO isBiggerExists = biggerService.getBigger(biggerId);
 
-        if (isBiggerExists.getBiggerId() == null) {
+        if (isBiggerExists.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -51,7 +51,7 @@ public class BiggerController {
     public ResponseEntity<BiggerDTO> deleteBiggerById(@PathVariable Long biggerId) {
         BiggerDTO biggerDeleted = this.biggerService.deleteBigger(biggerId);
 
-        if (biggerDeleted.getBiggerId() == null) {
+        if (biggerDeleted.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -66,7 +66,7 @@ public class BiggerController {
                                                     @RequestParam double weight) {
         BiggerDTO biggerUpdated = this.biggerService.updateBiggerById(biggerId, description, height, weight, width);
         
-        if (biggerUpdated.getBiggerId() == null) {
+        if (biggerUpdated.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

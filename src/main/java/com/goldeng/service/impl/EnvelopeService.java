@@ -59,7 +59,7 @@ public class EnvelopeService implements IEnvelopeService {
     public EnvelopeDTO deleteEnvelope(Long envelopeId) {
         EnvelopeDTO envelopeDTO = this.getEnvelopeById(envelopeId);
 
-        if (envelopeDTO.getEnvelopeId() == null) {
+        if (envelopeDTO.getPackageId() == null) {
             return new EnvelopeDTO();
         }
 

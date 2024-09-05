@@ -59,7 +59,7 @@ public class ParcelService implements IParcelService {
     public ParcelDTO deleteParcelById(Long parcelId) {
         ParcelDTO parcelDTO = this.getParcelById(parcelId);
 
-        if (parcelDTO.getParcelId() == null) {
+        if (parcelDTO.getPackageId() == null) {
             return new ParcelDTO();
         }
 

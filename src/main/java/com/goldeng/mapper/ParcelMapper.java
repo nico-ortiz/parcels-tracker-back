@@ -15,7 +15,6 @@ public interface ParcelMapper {
     
     ParcelMapper INSTANCE = Mappers.getMapper(ParcelMapper.class);
 
-    @Mapping(target = "price", ignore = true)
     @Mapping(target = "commission.commissionId", source = "commissionId")
     @Mapping(target = "packageId", source = "packageId")
     Parcel parcelDTOToParcel(ParcelDTO parcelDTO);

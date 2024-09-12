@@ -30,6 +30,8 @@ public class EnvelopeService implements IEnvelopeService {
 
     private ObjectsValidator<EnvelopeDTO> envelopeValidator;
 
+    private static final double PRICE_ENVELOPE = 7000;
+
     @Override
     public EnvelopeDTO getEnvelopeById(Long envelopeId) {
         Optional<Envelope> envelopeDB = envelopeRepository.findById(envelopeId);
@@ -51,6 +53,7 @@ public class EnvelopeService implements IEnvelopeService {
             return new EnvelopeDTO();
         }
 
+        envelopeDTO.setPrice(PRICE_ENVELOPE);
         Envelope envelopeSaved = envelopeRepository.save(envelopeMapper.envelopeDTOToEnvelope(envelopeDTO));
         return envelopeMapper.envelopeToEnvelopeDTO(envelopeSaved);
     }

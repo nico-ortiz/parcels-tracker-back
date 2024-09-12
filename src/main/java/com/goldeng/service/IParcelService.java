@@ -11,5 +11,5 @@ public interface IParcelService {
 
     ParcelDTO deleteParcelById(Long parcelId);
 
-    ParcelDTO updateParcelById(Long parcelId, String description, PackageType packageType, double weight);
+    ParcelDTO updateParcelById(Long parcelId, String description, PackageType packageType);
 }

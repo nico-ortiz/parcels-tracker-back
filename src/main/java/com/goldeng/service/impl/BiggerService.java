@@ -30,6 +30,8 @@ public class BiggerService implements IBiggerService {
 
     private BiggerMapper biggerMapper;
 
+    private static final double PRICE_BIGGER = 20000;
+
     @Override
     public BiggerDTO createBigger(BiggerDTO biggerDTO) {
         biggerValidator.validate(biggerDTO);
@@ -40,6 +42,7 @@ public class BiggerService implements IBiggerService {
             return new BiggerDTO();
         }
 
+        biggerDTO.setPrice(PRICE_BIGGER);
         Bigger biggerSaved = biggerRepository.save(biggerMapper.biggerDTOToBigger(biggerDTO));
         return biggerMapper.biggerToBiggerDTO(biggerSaved);
     }

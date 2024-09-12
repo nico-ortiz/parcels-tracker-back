@@ -30,6 +30,12 @@ public class ParcelService implements IParcelService {
 
     private ParcelMapper parcelMapper;
 
+    private static final double PRICE_PARCEL_SMALL = 10000;
+
+    private static final double PRICE_PARCEL_MEDIUM = 13000;
+
+    private static final double PRICE_PARCEL_BIG = 16000;
+
     @Override
     public ParcelDTO createParcel(ParcelDTO parcelDTO) {
         parcelValidator.validate(parcelDTO);
@@ -38,6 +44,14 @@ public class ParcelService implements IParcelService {
 
         if (isCommissionExists.getCommissionId() == null) {
             return new ParcelDTO();
+        }
+
+        if (parcelDTO.getPackageType().equals(PackageType.CAJA_CHICA)) {
+            parcelDTO.setPrice(PRICE_PARCEL_SMALL);
+        } else if (parcelDTO.getPackageType().equals(PackageType.CAJA_MEDIANA)) {
+            parcelDTO.setPrice(PRICE_PARCEL_MEDIUM);
+        } else {
+            parcelDTO.setPrice(PRICE_PARCEL_BIG);
         }
 
         Parcel parcelSaved = parcelRepository.save(parcelMapper.parcelDTOToParcel(parcelDTO));
@@ -68,7 +82,7 @@ public class ParcelService implements IParcelService {
     }
 
     @Override
-    public ParcelDTO updateParcelById(Long parcelId, String description, PackageType packageType, double weight) {
+    public ParcelDTO updateParcelById(Long parcelId, String description, PackageType packageType) {
         Optional<Parcel> parcel = this.parcelRepository.findById(parcelId);
 
         if (!parcel.isPresent()) {
@@ -78,7 +92,6 @@ public class ParcelService implements IParcelService {
         Parcel parcelUpdated = parcel.get();
         parcelUpdated.setDescription(description);
         parcelUpdated.setPackageType(packageType);
-        parcelUpdated.setWeight(weight);
 
         return this.parcelMapper.parcelToParcelDTO(this.parcelRepository.save(parcelUpdated));
     }

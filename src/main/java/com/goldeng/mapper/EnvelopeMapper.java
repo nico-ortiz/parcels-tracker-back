@@ -14,7 +14,6 @@ import com.goldeng.model.packageSubClasses.Envelope;
 public interface EnvelopeMapper {
     EnvelopeMapper INSTANCE = Mappers.getMapper(EnvelopeMapper.class);
 
-    @Mapping(target = "price", ignore = true)
     @Mapping(target = "commission.commissionId", source = "commissionId")
     Envelope envelopeDTOToEnvelope(EnvelopeDTO envelopeDTO);
 

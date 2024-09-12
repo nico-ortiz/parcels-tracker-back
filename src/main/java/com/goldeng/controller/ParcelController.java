@@ -62,9 +62,8 @@ public class ParcelController {
     @PutMapping("/update/{parcelId}")
     public ResponseEntity<ParcelDTO> updateParcelById(@PathVariable Long parcelId,
                                                     @RequestParam String description,
-                                                    @RequestParam PackageType packageType,
-                                                    @RequestParam double weight) {
-        ParcelDTO parcelDTO = this.parcelService.updateParcelById(parcelId, description, packageType, weight);
+                                                    @RequestParam PackageType packageType) {
+        ParcelDTO parcelDTO = this.parcelService.updateParcelById(parcelId, description, packageType);
         
         if (parcelDTO.getPackageId() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

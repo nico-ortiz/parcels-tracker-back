@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.goldeng.model.enums.Status;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -51,6 +52,6 @@ public class Commission {
     @JoinColumn(name = "receiver_id", nullable = false)
     private Receiver receiver;
 
-    @OneToMany(mappedBy = "commission", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "commission", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Package> packages = new ArrayList<>();
 }

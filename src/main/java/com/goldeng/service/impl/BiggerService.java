@@ -30,6 +30,8 @@ public class BiggerService implements IBiggerService {
 
     private BiggerMapper biggerMapper;
 
+    private static final double PRICE_BIGGER = 20000;
+
     @Override
     public BiggerDTO createBigger(BiggerDTO biggerDTO) {
         biggerValidator.validate(biggerDTO);
@@ -40,6 +42,7 @@ public class BiggerService implements IBiggerService {
             return new BiggerDTO();
         }
 
+        biggerDTO.setPrice(PRICE_BIGGER);
         Bigger biggerSaved = biggerRepository.save(biggerMapper.biggerDTOToBigger(biggerDTO));
         return biggerMapper.biggerToBiggerDTO(biggerSaved);
     }
@@ -53,6 +56,35 @@ public class BiggerService implements IBiggerService {
         }
 
         return biggerMapper.biggerToBiggerDTO(bigger.get());
+    }
+
+    @Override
+    public BiggerDTO deleteBigger(Long biggerId) {
+        BiggerDTO biggerDTO = this.getBigger(biggerId);
+
+        if (biggerDTO == null) {
+            return new BiggerDTO();
+        }
+
+        biggerRepository.delete(biggerMapper.biggerDTOToBigger(biggerDTO));
+        return biggerDTO;
+    }
+
+    @Override
+    public BiggerDTO updateBiggerById(Long biggerId, String description, double height, double weight, double width) {
+        Optional<Bigger> biggerToUpdate = this.biggerRepository.findById(biggerId);
+
+        if (!biggerToUpdate.isPresent()) {
+            return new BiggerDTO();
+        }
+
+        Bigger biggerUpdated = biggerToUpdate.get();
+        biggerUpdated.setDescription(description);
+        biggerUpdated.setHeight(height);
+        biggerUpdated.setWeight(weight);
+        biggerUpdated.setWidth(width);
+        
+        return this.biggerMapper.biggerToBiggerDTO(this.biggerRepository.save(biggerUpdated));
     }
     
 }

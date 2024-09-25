@@ -14,15 +14,11 @@ import com.goldeng.model.packageSubClasses.Envelope;
 public interface EnvelopeMapper {
     EnvelopeMapper INSTANCE = Mappers.getMapper(EnvelopeMapper.class);
 
-    @Mapping(target = "price", ignore = true)
     @Mapping(target = "commission.commissionId", source = "commissionId")
-    @Mapping(target = "packageId", source = "envelopeId")
     Envelope envelopeDTOToEnvelope(EnvelopeDTO envelopeDTO);
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
-    @Mapping(target = "envelopeId", source = "packageId")
     EnvelopeDTO envelopeToEnvelopeDTO(Envelope envelope);
  
-    @Mapping(target = "envelopeId", source = "packageId")
     EnvelopeDTOWithoutCommission envelopeToEnvelopeDTOWC(Envelope envelope);
 }

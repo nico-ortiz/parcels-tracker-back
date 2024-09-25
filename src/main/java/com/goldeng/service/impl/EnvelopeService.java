@@ -30,6 +30,8 @@ public class EnvelopeService implements IEnvelopeService {
 
     private ObjectsValidator<EnvelopeDTO> envelopeValidator;
 
+    private static final double PRICE_ENVELOPE = 7000;
+
     @Override
     public EnvelopeDTO getEnvelopeById(Long envelopeId) {
         Optional<Envelope> envelopeDB = envelopeRepository.findById(envelopeId);
@@ -51,8 +53,34 @@ public class EnvelopeService implements IEnvelopeService {
             return new EnvelopeDTO();
         }
 
+        envelopeDTO.setPrice(PRICE_ENVELOPE);
         Envelope envelopeSaved = envelopeRepository.save(envelopeMapper.envelopeDTOToEnvelope(envelopeDTO));
         return envelopeMapper.envelopeToEnvelopeDTO(envelopeSaved);
     }
+
+    @Override
+    public EnvelopeDTO deleteEnvelope(Long envelopeId) {
+        EnvelopeDTO envelopeDTO = this.getEnvelopeById(envelopeId);
+
+        if (envelopeDTO.getPackageId() == null) {
+            return new EnvelopeDTO();
+        }
+
+        envelopeRepository.delete(envelopeMapper.envelopeDTOToEnvelope(envelopeDTO));
+        return envelopeDTO;
+    }
+
+    @Override
+    public EnvelopeDTO updateEnvelope(Long envelopeId, String description) {
+        Optional<Envelope> envelope = this.envelopeRepository.findById(envelopeId);
+
+        if (!envelope.isPresent()) {
+            return new EnvelopeDTO();
+        }
+
+        Envelope envelopeUpdated = envelope.get();
+        envelopeUpdated.setDescription(description);
+        return envelopeMapper.envelopeToEnvelopeDTO(this.envelopeRepository.save(envelopeUpdated));
+    }   
     
 }

@@ -15,15 +15,12 @@ public interface ParcelMapper {
     
     ParcelMapper INSTANCE = Mappers.getMapper(ParcelMapper.class);
 
-    @Mapping(target = "price", ignore = true)
-    @Mapping(target = "packageId", source = "parcelId")
     @Mapping(target = "commission.commissionId", source = "commissionId")
+    @Mapping(target = "packageId", source = "packageId")
     Parcel parcelDTOToParcel(ParcelDTO parcelDTO);
 
     @Mapping(target = "commissionId", source = "commission.commissionId")
-    @Mapping(target = "parcelId", source = "packageId")
     ParcelDTO parcelToParcelDTO(Parcel parcel);
-
-    @Mapping(target = "parcelId", source = "packageId")
+    
     ParcelDTOWithoutCommission parcelToParcelDTOWTC(Parcel parcel);
 }

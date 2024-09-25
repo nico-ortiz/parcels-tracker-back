@@ -19,7 +19,7 @@ public class PackageDTO {
     private String description;
 
     @NotNull(message = "El precio del paquete es necesario")
-    private float price;
+    private double price;
 
     @NotNull(message = "El tipo de paquete es necesario")
     private PackageType packageType;

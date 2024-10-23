@@ -3,7 +3,8 @@ This repository contains an API Rest project built using Java Spring. This proje
 
 # Description
 This API brings endpoints to consume data about Parcels, Customers, Packages and Receivers (basic CRUD and others endpoints). These are project models that represent information manipulated in the app. \
-You can test the API endpoints directly from the Swagger documentation &rarr; [Swagger Documentation](https://commissions-tracker-api.onrender.com/swagger-ui/index.html)
+You can test the API endpoints directly from the Swagger documentation &rarr; [Swagger Documentation](https://commissions-tracker-api.onrender.com/swagger-ui/index.html) \
+Postman documentation &rarr; [Postman Documentation](https://documenter.getpostman.com/view/17467236/2sAY4rF56c)
 
 # Technologies
 I used Spring framework to build the API and PostgreSQL to persist the information in the database.

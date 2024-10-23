@@ -36,6 +36,6 @@ public class Customer extends Person {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Commission> commissions;
 }
